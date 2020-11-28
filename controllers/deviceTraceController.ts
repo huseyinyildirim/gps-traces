@@ -28,10 +28,10 @@ class DeviceTraceController {
 
     if (context.request.hasBody) {
       const result = await context.request.body(
-            { contentTypes: { text: ["application/json"] } },
+            { contentTypes: { text: ["application/javascript"] } },
           );
       
-          const data : any = result.value;
+          const data : any = await result.value;
       
           await deviceTraceService.createDeviceTraces(data);
       
@@ -50,7 +50,6 @@ class DeviceTraceController {
             }
           };
         }
-    
   }
 
   async update(context: RouterContext) {

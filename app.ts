@@ -1,19 +1,12 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
-import * as flags from 'https://deno.land/std/flags/mod.ts';
 import { router } from "./router/router.ts"
 import { client } from "./configs/database.ts";
 import errorMiddleware from "./middlewares/error.ts";
 
-const {args, exit} = Deno;
+const env = Deno.env.toObject();
 
-const DEFAULT_PORT = 5000;
-const argPort = flags.parse(args).port;
-const port = argPort ? Number(argPort) : DEFAULT_PORT;
-
-if (isNaN(port)){
-    console.log("Bu bağlantı noktası numarası değil!");
-    exit(1);
-};
+const PORT = env.PORT || 5000;
+const HOST = env.HOST || 'localhost';
 
 const app = new Application();
 
@@ -23,9 +16,9 @@ app.use(router.allowedMethods());
 
 await client.connect();
 
-console.log(`Uygulama başladı ve ${port} portu dinleniyor!`);
+console.log(`Uygulama başladı ve ${PORT} portu dinleniyor! Açmak için ${HOST}:${PORT}`);
 
-await app.listen({ port: port });
+await app.listen(`${HOST}:${PORT}`);
 
 await client.end();
 

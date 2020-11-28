@@ -2,6 +2,7 @@ import { Application } from "https://deno.land/x/oak/mod.ts";
 import * as flags from 'https://deno.land/std/flags/mod.ts';
 import { router } from "./router/router.ts"
 import { client } from "./configs/database.ts";
+import errorMiddleware from "./middlewares/error.ts";
 
 const {args, exit} = Deno;
 
@@ -16,6 +17,7 @@ if (isNaN(port)){
 
 const app = new Application();
 
+app.use(errorMiddleware)
 app.use(router.routes());
 app.use(router.allowedMethods());
 

@@ -1,6 +1,7 @@
-import { RouterContext } from "https://deno.land/x/oak/mod.ts";
+import { RouterContext, Context, Request, Response } from "https://deno.land/x/oak/mod.ts";
 import deviceTraceService from "../services/deviceTraceService.ts";
 import deviceTraceModel from "../models/deviceTraceModel.ts"
+import { RESPONSE_STATUS_TYPE } from "../core/constants.ts";
 
 class DeviceTraceController {
   async index(context: RouterContext) {
@@ -24,15 +25,31 @@ class DeviceTraceController {
   }
 
   async store(context: RouterContext) {
-    const result = await context.request.body(
-      { contentTypes: { text: ["application/json"] } },
-    );
-    const device = result.value;
 
-    await deviceTraceService.createDeviceTraces(<deviceTraceModel><unknown>device);
+    const result = await context.request.body(
+      { contentTypes: { json: ["application/json"] } },
+    );
+    
+    const { device_id, lat, long, ip_address } = result.value;
+
+    const trace : deviceTraceModel = {device_id, lat, long, ip_address}
+
+    await deviceTraceService.createDeviceTraces(trace);
 
     context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { message: "success" };
+
+    context.response.body = {
+      status: RESPONSE_STATUS_TYPE.success,
+      statusCode: 500,
+      systemTime: Date.now(),
+      data: trace,
+      message: null,
+      error: {
+          message: null,
+          internalMessage: null,
+          help: null
+      }
+    };
   }
 
   async update(context: RouterContext) {

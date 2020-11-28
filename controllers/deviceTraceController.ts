@@ -29,10 +29,8 @@ class DeviceTraceController {
     const result = await context.request.body(
       { contentTypes: { json: ["application/json"] } },
     );
-    
-    const { device_id, lat, long, ip_address } = result.value;
 
-    const trace : deviceTraceModel = {device_id, lat, long, ip_address}
+    const trace : any = result.value;
 
     await deviceTraceService.createDeviceTraces(trace);
 

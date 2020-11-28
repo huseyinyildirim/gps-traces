@@ -26,28 +26,31 @@ class DeviceTraceController {
 
   async store(context: RouterContext) {
 
-    const result = await context.request.body(
-      { contentTypes: { json: ["application/json"] } },
-    );
-
-    const trace : any = result.value;
-
-    await deviceTraceService.createDeviceTraces(trace);
-
-    context.response.headers.set("Content-Type", "application/json");
-
-    context.response.body = {
-      status: RESPONSE_STATUS_TYPE.success,
-      statusCode: 500,
-      systemTime: Date.now(),
-      data: trace,
-      message: null,
-      error: {
-          message: null,
-          internalMessage: null,
-          help: null
-      }
-    };
+    if (context.request.hasBody) {
+      const result = await context.request.body(
+            { contentTypes: { text: ["application/json"] } },
+          );
+      
+          const data : any = result.value;
+      
+          await deviceTraceService.createDeviceTraces(data);
+      
+          context.response.headers.set("Content-Type", "application/json");
+      
+          context.response.body = {
+            status: RESPONSE_STATUS_TYPE.success,
+            statusCode: 500,
+            systemTime: Date.now(),
+            data: data,
+            message: null,
+            error: {
+                message: null,
+                internalMessage: null,
+                help: null
+            }
+          };
+        }
+    
   }
 
   async update(context: RouterContext) {

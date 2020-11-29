@@ -3,7 +3,13 @@
   "scripts": {
     "start": {
       "cmd": "deno run --allow-env --allow-net --allow-read app.ts",
-      "desc": "run my app.ts file"
+      "desc": "run my app.ts file",
+      "allow": [
+        "env",
+        "read",
+        "net"
+    ],
+    "unstable": true
     }
   }
 }

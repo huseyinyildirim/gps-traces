@@ -11,10 +11,38 @@ class DeviceTraceController {
   }
 
   async showByDeviceId(context: RouterContext) {
-    const { deviceId } = context.params;
-    const deviceTraces = await deviceTraceService.getDeviceTracesByDeviceId(parseInt(deviceId!));
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { data: deviceTraces };
+    if (context.params && context.params.deviceId) {
+      const { deviceId } = context.params;
+      const deviceTraces = await deviceTraceService.getDeviceTracesByDeviceId(parseInt(deviceId!));
+
+      context.response.headers.set("Content-Type", "application/json");
+
+      context.response.body = {
+        status: RESPONSE_STATUS_TYPE.success,
+        statusCode: 200,
+        systemTime: Date.now(),
+        data: deviceTraces,
+        message: null,
+        error: {
+            message: null,
+            internalMessage: null,
+            help: null
+        }
+      };
+    } else {
+      context.response.body = {
+        status: RESPONSE_STATUS_TYPE.failure,
+        statusCode: 404,
+        systemTime: Date.now(),
+        data: null,
+        message: null,
+        error: {
+            message: null,
+            internalMessage: null,
+            help: null
+        }
+      };
+    }
   }
 
   async show(context: RouterContext) {
@@ -39,9 +67,22 @@ class DeviceTraceController {
       
           context.response.body = {
             status: RESPONSE_STATUS_TYPE.success,
-            statusCode: 500,
+            statusCode: 201,
             systemTime: Date.now(),
             data: data,
+            message: null,
+            error: {
+                message: null,
+                internalMessage: null,
+                help: null
+            }
+          };
+        } else {
+          context.response.body = {
+            status: RESPONSE_STATUS_TYPE.failure,
+            statusCode: 404,
+            systemTime: Date.now(),
+            data: null,
             message: null,
             error: {
                 message: null,

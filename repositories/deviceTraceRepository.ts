@@ -26,6 +26,7 @@ class DeviceTraceRepository {
           deviceTrace.device_id,
           deviceTrace.long,
           deviceTrace.lat,
+          deviceTrace.speed,
           deviceTrace.ip_address
         ],
       },
@@ -40,6 +41,7 @@ class DeviceTraceRepository {
           deviceTrace.device_id,
           deviceTrace.long,
           deviceTrace.lat,
+          deviceTrace.speed,
           deviceTrace.ip_address,
           id,
         ],

@@ -6,44 +6,44 @@ class DeviceTraceService {
     const result = await DeviceTraceRepository.all();
     const devices = new Array<DeviceTraceModel>();
 
-    result.rows.map((book) => {
+    /*result.rows.map((items) => {
       var temp: any = {};
       result.rowDescription.columns.map((item, index) => {
-        temp[item.name] = book[index];
+        temp[item.name] = items[index];
       });
       devices.push(temp);
-    });
+    });*/
 
-    return devices;
+    return result;
   };
 
   getDeviceTracesByDeviceId = async (deviceId: number) => {
     const result = await DeviceTraceRepository.findDeviceId(deviceId);
     const deviceTraces = new Array<DeviceTraceModel>();
 
-    result.rows.map((book) => {
+    /*result.rows.map((items) => {
       var temp: any = {};
       result.rowDescription.columns.map((item, index) => {
-        temp[item.name] = book[index];
+        temp[item.name] = items[index];
       });
       deviceTraces.push(temp);
-    });
+    });*/
 
-    return deviceTraces;
+    return result;
   };
 
   getDeviceTracesById = async (id: number) => {
     const result = await DeviceTraceRepository.find(id);
 
-    var device: any = {};
+    /*var device: any = {};
 
     result.rows.map((items) => {
       result.rowDescription.columns.map((item, index) => {
         device[item.name] = items[index];
       });
-    });
+    });*/
 
-    return device;
+    return result;
   };
 
   createDeviceTraces = async (device: DeviceTraceModel) => {

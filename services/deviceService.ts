@@ -6,43 +6,43 @@ class DeviceService {
     const result = await DeviceRepository.all();
     const devices = new Array<DeviceModel>();
 
-    result.rows.map((book) => {
+    /*result.rows.map((items) => {
       var temp: any = {};
       result.rowDescription.columns.map((item, index) => {
-        temp[item.name] = book[index];
+        temp[item.name] = items[index];
       });
       devices.push(temp);
-    });
+    });*/
 
-    return devices;
+    return result;
   };
 
   getDeviceBySerialNo = async (serialNo: string) => {
     const result = await DeviceRepository.findSerialNo(serialNo);
 
-    var device: any = {};
+    /*var device: any = {};
 
     result.rows.map((items) => {
       result.rowDescription.columns.map((item, index) => {
         device[item.name] = items[index];
       });
-    });
+    });*/
 
-    return device;
+    return result;
   };
 
   getDeviceById = async (id: number) => {
     const result = await DeviceRepository.find(id);
 
-    var device: any = {};
+    /*var device: any = {};
 
     result.rows.map((items) => {
       result.rowDescription.columns.map((item, index) => {
         device[item.name] = items[index];
       });
-    });
+    });*/
 
-    return device;
+    return result;
   };
 
   createDevice = async (device: DeviceModel) => {

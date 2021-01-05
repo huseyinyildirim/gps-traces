@@ -1,5 +1,6 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
 import * as flags from 'https://deno.land/std/flags/mod.ts';
+import {viewEngine, engineFactory, adapterFactory } from "https://deno.land/x/view_engine/mod.ts";
 import { router } from "./router/router.ts"
 import { client } from "./configs/database.ts";
 import errorMiddleware from "./middlewares/error.ts";
@@ -15,7 +16,15 @@ if (isNaN(port)){
     exit(1);
 };
 
+const ejsEngine = engineFactory.getEjsEngine();
+const oakAdapter = adapterFactory.getOakAdapter();
+
 const app = new Application();
+
+app.use(viewEngine(oakAdapter, ejsEngine, {
+    viewRoot: "./views",
+    viewExt: ".ejs",
+}));
 
 app.use(errorMiddleware)
 app.use(router.routes());

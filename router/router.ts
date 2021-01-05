@@ -6,7 +6,7 @@ import deviceTraceController from "../controllers/deviceTraceController.ts";
 const router = new Router();
 
 router.get('/', (ctx:any) => {
-    ctx.render("index.ejs", { data: { name: "John" } });
+    ctx.render("index", { data: { name: "John" } });
 
 });
 

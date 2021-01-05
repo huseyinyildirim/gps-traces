@@ -1,8 +1,8 @@
 interface DeviceTrace {
     id?: number;
     device_id: number;
-    long: string;
-    lat: string;
+    longitude: string;
+    latitude: string;
     speed: string;
     ip_address: string;
 }

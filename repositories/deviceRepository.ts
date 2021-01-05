@@ -1,4 +1,4 @@
-import { client } from "../configs/database.ts";
+import { client } from "../configs/mysql.ts";
 import DeviceModel from "../models/deviceModel.ts";
 
 class DeviceRepository {
@@ -7,49 +7,33 @@ class DeviceRepository {
   }
 
   async find(id: number) {
-    return client.query(
-      { text: "SELECT * FROM tbl_devices WHERE id=$1", args: [id] },
-    );
+    return client.query("SELECT * FROM tbl_devices WHERE id=?", [id]);
   }
 
   async findSerialNo(serialNo: string) {
-    return client.query(
-      { text: "SELECT * FROM tbl_devices WHERE serial_no=$1", args: [serialNo] },
-    );
+    return client.query("SELECT * FROM tbl_devices WHERE serial_no=?", [serialNo]);
   }
 
   async create(device: DeviceModel) {
-    return client.query(
-      {
-        text: "INSERT INTO tbl_devices (serial_no, secret_key) VALUES ($1, $2)",
-        args: [
+    return client.execute("INSERT INTO tbl_devices (serial_no, secret_key) VALUES (?, ?)",
+        [
             device.serial_no,
             device.secret_key
-        ],
-      },
-    );
+        ]);
   }
 
   async update(id: number, device: DeviceModel) {
-    return client.query(
-      {
-        text: "UPDATE tbl_devices SET serial_no=$1, secret_key=$2 WHERE id=$4",
-        args: [
+    return client.execute("UPDATE tbl_devices SET serial_no=?, secret_key=? WHERE id=?",
+        [
             device.serial_no,
             device.secret_key,
           id,
-        ],
-      },
-    );
+        ]);
   }
 
   async delete(id: number) {
-    return client.query(
-      {
-        text: "DELETE FROM tbl_devices WHERE id=$1",
-        args: [id],
-      },
-    );
+    return client.execute("DELETE FROM tbl_devices WHERE id=?", [id]);
   }
 }
+
 export default new DeviceRepository();

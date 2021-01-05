@@ -1,4 +1,4 @@
-import { client } from "../configs/database.ts";
+import { client } from "../configs/mysql.ts";
 import AdminModel from "../models/adminModel.ts";
 
 class AdminRepository {
@@ -7,49 +7,35 @@ class AdminRepository {
   }
 
   async find(id: number) {
-    return client.query(
-      { text: "SELECT * FROM tbl_admins WHERE id=$1", args: [id] },
-    );
+    return client.query("SELECT * FROM tbl_admins WHERE id=?", [id]);
   }
 
   async create(admin: AdminModel) {
-    return client.query(
-      {
-        text: "INSERT INTO tbl_admins (name, surname, mail, phone, password) VALUES ($1, $2, $3, $4, $5)",
-        args: [
+    return client.execute("INSERT INTO tbl_admins (name, surname, mail, phone, password) VALUES (?, ?, ?, ?, ?)",
+        [
             admin.name,
             admin.surname,
             admin.mail,
             admin.phone,
             admin.password
-        ],
-      },
-    );
+        ]);
   }
 
   async update(id: number, admin: AdminModel) {
-    return client.query(
-      {
-        text: "UPDATE tbl_admins SET name=$1, surname=$2, mail=$3, phone=$4, password=$5 WHERE id=$6",
-        args: [
+    return client.execute("UPDATE tbl_admins SET name=?, surname=?, mail=?, phone=?, password=? WHERE id=?",
+        [
           admin.name,
           admin.surname,
           admin.mail,
           admin.phone,
           admin.password,
           id,
-        ],
-      },
-    );
+        ]);
   }
 
   async delete(id: number) {
-    return client.query(
-      {
-        text: "DELETE FROM tbl_admins WHERE id=$1",
-        args: [id],
-      },
-    );
+    return client.execute("DELETE FROM tbl_admins WHERE id=?", [id]);
   }
 }
+
 export default new AdminRepository();

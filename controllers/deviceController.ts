@@ -5,9 +5,9 @@ import { RESPONSE_STATUS_TYPE } from "../core/constants.ts";
 
 class DeviceController {
   async index(context: RouterContext) {
-    const books = await deviceService.getAll();
+    const data = await deviceService.getAll();
     context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { data: books };
+    context.response.body = { data: data };
   }
 
   async showBySerialNo(context: RouterContext) {

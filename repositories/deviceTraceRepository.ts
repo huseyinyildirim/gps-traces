@@ -15,7 +15,7 @@ class DeviceTraceRepository {
   }
 
   async create(deviceTrace: DeviceTraceModel) {
-    return client.execute("INSERT INTO tbl_device_traces (device_id, longitude, latitude, ip_address) VALUES (?, ?, ?, ?)",
+    return client.execute("INSERT INTO tbl_device_traces (device_id, longitude, latitude, speed, ip_address) VALUES (?, ?, ?, ?, ?)",
         [
           deviceTrace.device_id,
           deviceTrace.longitude,
@@ -26,7 +26,7 @@ class DeviceTraceRepository {
   }
 
   async update(id: number, deviceTrace: DeviceTraceModel) {
-    return client.execute("UPDATE tbl_devices SET device_id=?, longitude=?, latitude=?, ip_address=? WHERE id=?",
+    return client.execute("UPDATE tbl_devices SET device_id=?, longitude=?, latitude=?, speed=?, ip_address=? WHERE id=?",
         [
           deviceTrace.device_id,
           deviceTrace.longitude,

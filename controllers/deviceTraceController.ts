@@ -5,7 +5,7 @@ import { RESPONSE_STATUS_TYPE } from "../core/constants.ts";
 
 class DeviceTraceController {
   async index(context: RouterContext) {
-    const deviceTraces = await deviceTraceService.getAllDeviceTraces();
+    const deviceTraces = await deviceTraceService.getAll();
     context.response.headers.set("Content-Type", "application/json");
     context.response.body = { data: deviceTraces };
   }
@@ -13,7 +13,7 @@ class DeviceTraceController {
   async showByDeviceId(context: RouterContext) {
     if (context.params && context.params.deviceId) {
       const { deviceId } = context.params;
-      const deviceTraces = await deviceTraceService.getDeviceTracesByDeviceId(parseInt(deviceId!));
+      const deviceTraces = await deviceTraceService.getByDeviceId(parseInt(deviceId!));
 
       context.response.headers.set("Content-Type", "application/json");
 
@@ -47,7 +47,7 @@ class DeviceTraceController {
 
   async show(context: RouterContext) {
     const { id } = context.params;
-    const deviceTrace = await deviceTraceService.getDeviceTracesById(parseInt(id!));
+    const deviceTrace = await deviceTraceService.getById(parseInt(id!));
     context.response.headers.set("Content-Type", "application/json");
     context.response.body = { data: deviceTrace };
   }
@@ -61,7 +61,7 @@ class DeviceTraceController {
       
           const data : any = await result.value;
       
-          await deviceTraceService.createDeviceTraces(data);
+          await deviceTraceService.create(data);
       
           context.response.headers.set("Content-Type", "application/json");
       
@@ -99,7 +99,7 @@ class DeviceTraceController {
     );
     const device = result.value;
     const { id } = context.params;
-    await deviceTraceService.updateDeviceTraces(parseInt(id!), <deviceTraceModel><unknown>device);
+    await deviceTraceService.update(parseInt(id!), <deviceTraceModel><unknown>device);
 
     context.response.headers.set("Content-Type", "application/json");
     context.response.body = { message: "success" };
@@ -107,7 +107,7 @@ class DeviceTraceController {
 
   async delete(context: RouterContext) {
     const { id } = context.params;
-    await deviceTraceService.deleteDeviceTraces(parseInt(id!));
+    await deviceTraceService.delete(parseInt(id!));
 
     context.response.headers.set("Content-Type", "application/json");
     context.response.body = { message: "success" };

@@ -5,7 +5,7 @@ import { RESPONSE_STATUS_TYPE } from "../core/constants.ts";
 
 class DeviceController {
   async index(context: RouterContext) {
-    const books = await deviceService.getAllDevices();
+    const books = await deviceService.getAll();
     context.response.headers.set("Content-Type", "application/json");
     context.response.body = { data: books };
   }
@@ -15,7 +15,7 @@ class DeviceController {
     if (context.params && context.params.serialNo) {
 
       const { serialNo } = context.params;
-      const device = await deviceService.getDeviceBySerialNo(serialNo!);
+      const device = await deviceService.getBySerialNo(serialNo!);
 
       context.response.headers.set("Content-Type", "application/json");
 
@@ -50,7 +50,7 @@ class DeviceController {
 
   async show(context: RouterContext) {
     const { id } = context.params;
-    const device = await deviceService.getDeviceById(parseInt(id!));
+    const device = await deviceService.getById(parseInt(id!));
     context.response.headers.set("Content-Type", "application/json");
     context.response.body = { data: device };
   }
@@ -61,7 +61,7 @@ class DeviceController {
     );
     const device = result.value;
 
-    await deviceService.createDevice(<deviceModel><unknown>device);
+    await deviceService.create(<deviceModel><unknown>device);
 
     context.response.headers.set("Content-Type", "application/json");
     context.response.body = { message: "success" };
@@ -73,7 +73,7 @@ class DeviceController {
     );
     const device = result.value;
     const { id } = context.params;
-    await deviceService.updateDevice(parseInt(id!), <deviceModel><unknown>device);
+    await deviceService.update(parseInt(id!), <deviceModel><unknown>device);
 
     context.response.headers.set("Content-Type", "application/json");
     context.response.body = { message: "success" };
@@ -81,7 +81,7 @@ class DeviceController {
 
   async delete(context: RouterContext) {
     const { id } = context.params;
-    await deviceService.deleteDevice(parseInt(id!));
+    await deviceService.delete(parseInt(id!));
 
     context.response.headers.set("Content-Type", "application/json");
     context.response.body = { message: "success" };

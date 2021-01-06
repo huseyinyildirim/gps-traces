@@ -2,7 +2,7 @@ import DeviceTraceRepository from "../repositories/deviceTraceRepository.ts";
 import DeviceTraceModel from "../models/deviceTraceModel.ts";
 
 class DeviceTraceService {
-  getAllDeviceTraces = async () => {
+  getAll = async () => {
     const result = await DeviceTraceRepository.all();
     const devices = new Array<DeviceTraceModel>();
 
@@ -17,7 +17,7 @@ class DeviceTraceService {
     return result;
   };
 
-  getDeviceTracesByDeviceId = async (deviceId: number) => {
+  getByDeviceId = async (deviceId: number) => {
     const result = await DeviceTraceRepository.findDeviceId(deviceId);
     const deviceTraces = new Array<DeviceTraceModel>();
 
@@ -32,7 +32,7 @@ class DeviceTraceService {
     return result;
   };
 
-  getDeviceTracesById = async (id: number) => {
+  getById = async (id: number) => {
     const result = await DeviceTraceRepository.find(id);
 
     /*var device: any = {};
@@ -46,15 +46,15 @@ class DeviceTraceService {
     return result;
   };
 
-  createDeviceTraces = async (device: DeviceTraceModel) => {
+  create = async (device: DeviceTraceModel) => {
     return await DeviceTraceRepository.create(device);
   };
 
-  updateDeviceTraces = async (id: number, device: DeviceTraceModel) => {
+  update = async (id: number, device: DeviceTraceModel) => {
     return await DeviceTraceRepository.update(id, device);
   };
 
-  deleteDeviceTraces = async (id: number) => {
+  delete = async (id: number) => {
     return await DeviceTraceRepository.delete(id);
   };
 }

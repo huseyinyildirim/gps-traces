@@ -1,7 +1,7 @@
-import { Application, send } from "https://deno.land/x/oak/mod.ts";
+import { Application } from "https://deno.land/x/oak/mod.ts";
 import * as flags from 'https://deno.land/std/flags/mod.ts';
 import {viewEngine, engineFactory, adapterFactory } from "https://deno.land/x/view_engine/mod.ts";
-import { green, yellow } from "https://deno.land/std@0.53.0/fmt/colors.ts";
+import { green, yellow } from "https://deno.land/std/fmt/colors.ts";
 
 import { router } from "./router/router.ts"
 import { client } from "./configs/mysql.ts";
@@ -18,10 +18,10 @@ if (isNaN(port)){
     exit(1);
 };
 
+const app = new Application();
+
 const ejsEngine = engineFactory.getEjsEngine();
 const oakAdapter = adapterFactory.getOakAdapter();
-
-const app = new Application();
 
 app.use(viewEngine(oakAdapter, ejsEngine, {
     viewRoot: "./views",
@@ -49,13 +49,6 @@ app.addEventListener("listen", ({ secure, hostname, port }) => {
     const protocol = secure ? "https://" : "http://";
     const url = `${protocol}${hostname ?? "localhost"}:${port}`;
     console.log(`${green("Uygulama başladı.")} ${yellow(url)} portu dinleniyor!`);
-});
-
-app.use(async (ctx, next) => {
-    await send(ctx, ctx.request.url.pathname,{
-        root: `${Deno.cwd()}/static`
-    });
-    next();
 });
 
 await app.listen({ port: port });

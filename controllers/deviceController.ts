@@ -46,8 +46,6 @@ class DeviceController {
         }
       };
     }
-
-
   }
 
   async show(context: RouterContext) {
@@ -89,4 +87,5 @@ class DeviceController {
     context.response.body = { message: "success" };
   }
 }
+
 export default new DeviceController();

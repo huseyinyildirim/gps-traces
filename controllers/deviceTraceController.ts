@@ -113,4 +113,5 @@ class DeviceTraceController {
     context.response.body = { message: "success" };
   }
 }
+
 export default new DeviceTraceController();

@@ -2,6 +2,10 @@ import CustomerRepository from "../repositories/customerRepository.ts";
 import CustomerModel from "../models/customerModel.ts";
 
 class CustomerService {
+  loginControl = async (mail: string, password: string) => {
+    return await CustomerRepository.loginControl(mail, password)
+  }
+
   getAll = async () => {
     return await CustomerRepository.all();
   };

@@ -4,6 +4,7 @@ import adminCustomerController from "../controllers/admin/customerController.ts"
 
 import apiDeviceController from "../controllers/api/deviceController.ts";
 import apiDeviceTraceController from "../controllers/api/deviceTraceController.ts";
+import apiAuthController from "../controllers/api/authController.ts";
 
 const router = new Router();
 
@@ -34,7 +35,7 @@ router.get('/iletisim', (ctx : any) => {
 });
 //#endregion
 
-//#region 
+//#region
 router.get('/admin', (ctx : any) => {
     ctx.render("admin/pages/home/index", null);
 });
@@ -53,6 +54,8 @@ router.get('/admin/device', (ctx : any) => {
 //#endregion
 
 //#region API
+router.post("/api/v1/auth/login", apiAuthController.login);
+
 //router.get("/device/:id", deviceController.show);
 router.get("/api/v1/device/:serialNo", apiDeviceController.showBySerialNo);
 router.get("/api/v1/device/:deviceId/traces", apiDeviceTraceController.showByDeviceId);

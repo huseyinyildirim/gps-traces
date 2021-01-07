@@ -1,5 +1,6 @@
 import DeviceRepository from "../repositories/deviceRepository.ts";
 import DeviceModel from "../models/deviceModel.ts";
+import DeviceTraceRepository from "../repositories/deviceTraceRepository.ts";
 
 class DeviceService {
   getAll = async () => {
@@ -8,6 +9,10 @@ class DeviceService {
 
   getBySerialNo = async (serialNo: string) => {
     return await DeviceRepository.findSerialNo(serialNo);
+  };
+
+  getByCustomerId = async (customerId: number) => {
+    return await DeviceRepository.findCustomerId(customerId);
   };
 
   getById = async (id: number) => {

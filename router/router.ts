@@ -4,6 +4,7 @@ import { v4 } from "https://deno.land/std@0.83.0/uuid/mod.ts";
 
 import adminCustomerController from "../controllers/admin/customerController.ts"
 
+import apiCustomerController from "../controllers/api/customerController.ts";
 import apiDeviceController from "../controllers/api/deviceController.ts";
 import apiDeviceTraceController from "../controllers/api/deviceTraceController.ts";
 import apiAuthController from "../controllers/api/authController.ts";
@@ -88,7 +89,7 @@ router.get("/api/handshake", async (ctx) => {
 });
 
 router.post("/api/v1/auth/login", apiAuthController.login);
-router.get("/api/v1/customer/:customerId/devices")
+router.get("/api/v1/customer/:customerId/devices", apiCustomerController.devices)
 
 //router.get("/device/:id", deviceController.show);
 router.get("/api/v1/device/:serialNo", apiDeviceController.showBySerialNo);

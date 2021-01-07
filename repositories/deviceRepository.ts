@@ -10,6 +10,10 @@ class DeviceRepository {
         return client.query("SELECT * FROM tbl_devices WHERE id=?", [id]);
     }
 
+    async findCustomerId(customerId: number) {
+        return client.query("SELECT * FROM tbl_devices AS d USE INDEX(id) WHERE id IN (SELECT device_id FROM tbl_customer_devices AS cd USE INDEX(customer_id) WHERE cd.customer_id = ?)", [customerId]);
+    }
+
     async findSerialNo(serialNo: string) {
         return client.query("SELECT * FROM tbl_devices WHERE serial_no=?", [serialNo]);
     }

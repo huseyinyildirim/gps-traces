@@ -24,9 +24,9 @@ class DeviceTraceController {
         data: deviceTraces,
         message: null,
         error: {
-            message: null,
-            internalMessage: null,
-            help: null
+          message: null,
+          internalMessage: null,
+          help: null
         }
       };
     } else {
@@ -37,9 +37,9 @@ class DeviceTraceController {
         data: null,
         message: null,
         error: {
-            message: null,
-            internalMessage: null,
-            help: null
+          message: null,
+          internalMessage: null,
+          help: null
         }
       };
     }
@@ -56,46 +56,46 @@ class DeviceTraceController {
 
     if (context.request.hasBody) {
       const result = await context.request.body(
-            { contentTypes: { text: ["application/javascript"] } },
-          );
-      
-          const data : any = await result.value;
-      
-          await deviceTraceService.create(data);
-      
-          context.response.headers.set("Content-Type", "application/json");
-      
-          context.response.body = {
-            status: RESPONSE_STATUS_TYPE.success,
-            statusCode: 201,
-            systemTime: Date.now(),
-            data: data,
-            message: null,
-            error: {
-                message: null,
-                internalMessage: null,
-                help: null
-            }
-          };
-        } else {
-          context.response.body = {
-            status: RESPONSE_STATUS_TYPE.failure,
-            statusCode: 404,
-            systemTime: Date.now(),
-            data: null,
-            message: null,
-            error: {
-                message: null,
-                internalMessage: null,
-                help: null
-            }
-          };
+          { contentTypes: { text: ["application/javascript"] } },
+      );
+
+      const data : any = await result.value;
+
+      await deviceTraceService.create(data);
+
+      context.response.headers.set("Content-Type", "application/json");
+
+      context.response.body = {
+        status: RESPONSE_STATUS_TYPE.success,
+        statusCode: 201,
+        systemTime: Date.now(),
+        data: data,
+        message: null,
+        error: {
+          message: null,
+          internalMessage: null,
+          help: null
         }
+      };
+    } else {
+      context.response.body = {
+        status: RESPONSE_STATUS_TYPE.failure,
+        statusCode: 404,
+        systemTime: Date.now(),
+        data: null,
+        message: null,
+        error: {
+          message: null,
+          internalMessage: null,
+          help: null
+        }
+      };
+    }
   }
 
   async update(context: RouterContext) {
     const result = await context.request.body(
-      { contentTypes: { text: ["application/json"] } },
+        { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
     const { id } = context.params;

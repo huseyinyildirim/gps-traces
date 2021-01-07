@@ -5,6 +5,6 @@ interface Customer {
     mail: string;
     phone: string;
     password: string;
-  }
-  
-  export default Customer;
+}
+
+export default Customer;

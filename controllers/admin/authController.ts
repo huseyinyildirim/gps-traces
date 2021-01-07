@@ -12,7 +12,7 @@ class AuthController {
   }
 
   async showBySerialNo(context: RouterContext) {
-    
+
     if (context.params && context.params.serialNo) {
 
       const { serialNo } = context.params;
@@ -27,9 +27,9 @@ class AuthController {
         data: data,
         message: null,
         error: {
-            message: null,
-            internalMessage: null,
-            help: null
+          message: null,
+          internalMessage: null,
+          help: null
         }
       };
 
@@ -41,9 +41,9 @@ class AuthController {
         data: null,
         message: null,
         error: {
-            message: null,
-            internalMessage: null,
-            help: null
+          message: null,
+          internalMessage: null,
+          help: null
         }
       };
     }
@@ -58,7 +58,7 @@ class AuthController {
 
   async store(context: RouterContext) {
     const result = await context.request.body(
-      { contentTypes: { text: ["application/json"] } },
+        { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
 
@@ -70,7 +70,7 @@ class AuthController {
 
   async update(context: RouterContext) {
     const result = await context.request.body(
-      { contentTypes: { text: ["application/json"] } },
+        { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
     const { id } = context.params;

@@ -11,7 +11,7 @@ class DeviceController {
   }
 
   async showBySerialNo(context: RouterContext) {
-    
+
     if (context.params && context.params.serialNo) {
 
       const { serialNo } = context.params;
@@ -26,9 +26,9 @@ class DeviceController {
         data: device,
         message: null,
         error: {
-            message: null,
-            internalMessage: null,
-            help: null
+          message: null,
+          internalMessage: null,
+          help: null
         }
       };
 
@@ -40,9 +40,9 @@ class DeviceController {
         data: null,
         message: null,
         error: {
-            message: null,
-            internalMessage: null,
-            help: null
+          message: null,
+          internalMessage: null,
+          help: null
         }
       };
     }
@@ -57,7 +57,7 @@ class DeviceController {
 
   async store(context: RouterContext) {
     const result = await context.request.body(
-      { contentTypes: { text: ["application/json"] } },
+        { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
 
@@ -69,7 +69,7 @@ class DeviceController {
 
   async update(context: RouterContext) {
     const result = await context.request.body(
-      { contentTypes: { text: ["application/json"] } },
+        { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
     const { id } = context.params;

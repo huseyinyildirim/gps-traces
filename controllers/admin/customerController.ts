@@ -8,7 +8,6 @@ class CustomerController {
   async index(context: RouterContext) {
     const data = await customerService.getAll();
 
-
     return  {
       status: RESPONSE_STATUS_TYPE.success,
       statusCode: 200,
@@ -33,7 +32,7 @@ class CustomerController {
 
   async store(context: RouterContext) {
     const result = await context.request.body(
-      { contentTypes: { text: ["application/json"] } },
+        { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
 
@@ -45,7 +44,7 @@ class CustomerController {
 
   async update(context: RouterContext) {
     const result = await context.request.body(
-      { contentTypes: { text: ["application/json"] } },
+        { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
     const { id } = context.params;

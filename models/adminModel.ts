@@ -5,6 +5,6 @@ interface Admin {
     mail: string;
     phone: string;
     password: string;
-  }
-  
-  export default Admin;
+}
+
+export default Admin;

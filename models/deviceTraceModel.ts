@@ -6,5 +6,5 @@ interface DeviceTrace {
     speed?: number;
     ip_address: string;
 }
-  
-  export default DeviceTrace;
+
+export default DeviceTrace;

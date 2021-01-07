@@ -3,10 +3,9 @@ import DeviceTraceModel from "../models/deviceTraceModel.ts";
 
 class DeviceTraceService {
   getAll = async () => {
-    const result = await DeviceTraceRepository.all();
-    const devices = new Array<DeviceTraceModel>();
+    /*const devices = new Array<DeviceTraceModel>();
 
-    /*result.rows.map((items) => {
+    result.rows.map((items) => {
       var temp: any = {};
       result.rowDescription.columns.map((item, index) => {
         temp[item.name] = items[index];
@@ -14,14 +13,13 @@ class DeviceTraceService {
       devices.push(temp);
     });*/
 
-    return result;
+    return await DeviceTraceRepository.all();
   };
 
   getByDeviceId = async (deviceId: number) => {
-    const result = await DeviceTraceRepository.findDeviceId(deviceId);
-    const deviceTraces = new Array<DeviceTraceModel>();
+    /*const deviceTraces = new Array<DeviceTraceModel>();
 
-    /*result.rows.map((items) => {
+    result.rows.map((items) => {
       var temp: any = {};
       result.rowDescription.columns.map((item, index) => {
         temp[item.name] = items[index];
@@ -29,12 +27,10 @@ class DeviceTraceService {
       deviceTraces.push(temp);
     });*/
 
-    return result;
+    return await DeviceTraceRepository.findDeviceId(deviceId);
   };
 
   getById = async (id: number) => {
-    const result = await DeviceTraceRepository.find(id);
-
     /*var device: any = {};
 
     result.rows.map((items) => {
@@ -43,7 +39,7 @@ class DeviceTraceService {
       });
     });*/
 
-    return result;
+    return await DeviceTraceRepository.find(id);
   };
 
   create = async (device: DeviceTraceModel) => {

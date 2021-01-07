@@ -5,7 +5,7 @@ import { RESPONSE_STATUS_TYPE } from "../../core/constants.ts";
 
 class CustomerController {
 
-  async index(context: RouterContext) {
+  async index(ctx: RouterContext) {
     const data = await customerService.getAll();
 
     return  {
@@ -23,43 +23,43 @@ class CustomerController {
 
   }
 
-  async show(context: RouterContext) {
-    const { id } = context.params;
+  async show(ctx: RouterContext) {
+    const { id } = ctx.params;
     const device = await customerService.getById(parseInt(id!));
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { data: device };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { data: device };
   }
 
-  async store(context: RouterContext) {
-    const result = await context.request.body(
+  async store(ctx: RouterContext) {
+    const result = await ctx.request.body(
         { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
 
     await customerService.create(<customerModel><unknown>device);
 
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { message: "success" };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { message: "success" };
   }
 
-  async update(context: RouterContext) {
-    const result = await context.request.body(
+  async update(ctx: RouterContext) {
+    const result = await ctx.request.body(
         { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
-    const { id } = context.params;
+    const { id } = ctx.params;
     await customerService.update(parseInt(id!), <customerModel><unknown>device);
 
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { message: "success" };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { message: "success" };
   }
 
-  async delete(context: RouterContext) {
-    const { id } = context.params;
+  async delete(ctx: RouterContext) {
+    const { id } = ctx.params;
     await customerService.delete(parseInt(id!));
 
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { message: "success" };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { message: "success" };
   }
 }
 

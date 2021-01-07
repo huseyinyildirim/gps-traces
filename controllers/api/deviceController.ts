@@ -4,22 +4,22 @@ import deviceModel from "../../models/deviceModel.ts"
 import { RESPONSE_STATUS_TYPE } from "../../core/constants.ts";
 
 class DeviceController {
-  async index(context: RouterContext) {
+  async index(ctx: RouterContext) {
     const data = await deviceService.getAll();
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { data: data };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { data: data };
   }
 
-  async showBySerialNo(context: RouterContext) {
+  async showBySerialNo(ctx: RouterContext) {
 
-    if (context.params && context.params.serialNo) {
+    if (ctx.params && ctx.params.serialNo) {
 
-      const { serialNo } = context.params;
+      const { serialNo } = ctx.params;
       const device = await deviceService.getBySerialNo(serialNo!);
 
-      context.response.headers.set("Content-Type", "application/json");
+      ctx.response.headers.set("Content-Type", "application/json");
 
-      context.response.body = {
+      ctx.response.body = {
         status: RESPONSE_STATUS_TYPE.success,
         statusCode: 200,
         systemTime: Date.now(),
@@ -33,7 +33,7 @@ class DeviceController {
       };
 
     } else {
-      context.response.body = {
+      ctx.response.body = {
         status: RESPONSE_STATUS_TYPE.failure,
         statusCode: 404,
         systemTime: Date.now(),
@@ -48,43 +48,43 @@ class DeviceController {
     }
   }
 
-  async show(context: RouterContext) {
-    const { id } = context.params;
+  async show(ctx: RouterContext) {
+    const { id } = ctx.params;
     const device = await deviceService.getById(parseInt(id!));
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { data: device };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { data: device };
   }
 
-  async store(context: RouterContext) {
-    const result = await context.request.body(
+  async store(ctx: RouterContext) {
+    const result = await ctx.request.body(
         { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
 
     await deviceService.create(<deviceModel><unknown>device);
 
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { message: "success" };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { message: "success" };
   }
 
-  async update(context: RouterContext) {
-    const result = await context.request.body(
+  async update(ctx: RouterContext) {
+    const result = await ctx.request.body(
         { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
-    const { id } = context.params;
+    const { id } = ctx.params;
     await deviceService.update(parseInt(id!), <deviceModel><unknown>device);
 
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { message: "success" };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { message: "success" };
   }
 
-  async delete(context: RouterContext) {
-    const { id } = context.params;
+  async delete(ctx: RouterContext) {
+    const { id } = ctx.params;
     await deviceService.delete(parseInt(id!));
 
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { message: "success" };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { message: "success" };
   }
 }
 

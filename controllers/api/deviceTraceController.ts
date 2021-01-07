@@ -4,20 +4,20 @@ import deviceTraceModel from "../../models/deviceTraceModel.ts"
 import { RESPONSE_STATUS_TYPE } from "../../core/constants.ts";
 
 class DeviceTraceController {
-  async index(context: RouterContext) {
+  async index(ctx: RouterContext) {
     const deviceTraces = await deviceTraceService.getAll();
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { data: deviceTraces };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { data: deviceTraces };
   }
 
-  async showByDeviceId(context: RouterContext) {
-    if (context.params && context.params.deviceId) {
-      const { deviceId } = context.params;
+  async showByDeviceId(ctx: RouterContext) {
+    if (ctx.params && ctx.params.deviceId) {
+      const { deviceId } = ctx.params;
       const deviceTraces = await deviceTraceService.getByDeviceId(parseInt(deviceId!));
 
-      context.response.headers.set("Content-Type", "application/json");
+      ctx.response.headers.set("Content-Type", "application/json");
 
-      context.response.body = {
+      ctx.response.body = {
         status: RESPONSE_STATUS_TYPE.success,
         statusCode: 200,
         systemTime: Date.now(),
@@ -30,7 +30,7 @@ class DeviceTraceController {
         }
       };
     } else {
-      context.response.body = {
+      ctx.response.body = {
         status: RESPONSE_STATUS_TYPE.failure,
         statusCode: 404,
         systemTime: Date.now(),
@@ -45,17 +45,17 @@ class DeviceTraceController {
     }
   }
 
-  async show(context: RouterContext) {
-    const { id } = context.params;
+  async show(ctx: RouterContext) {
+    const { id } = ctx.params;
     const deviceTrace = await deviceTraceService.getById(parseInt(id!));
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { data: deviceTrace };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { data: deviceTrace };
   }
 
-  async store(context: RouterContext) {
+  async store(ctx: RouterContext) {
 
-    if (context.request.hasBody) {
-      const result = await context.request.body(
+    if (ctx.request.hasBody) {
+      const result = await ctx.request.body(
           { contentTypes: { text: ["application/javascript"] } },
       );
 
@@ -63,9 +63,9 @@ class DeviceTraceController {
 
       await deviceTraceService.create(data);
 
-      context.response.headers.set("Content-Type", "application/json");
+      ctx.response.headers.set("Content-Type", "application/json");
 
-      context.response.body = {
+      ctx.response.body = {
         status: RESPONSE_STATUS_TYPE.success,
         statusCode: 201,
         systemTime: Date.now(),
@@ -78,7 +78,7 @@ class DeviceTraceController {
         }
       };
     } else {
-      context.response.body = {
+      ctx.response.body = {
         status: RESPONSE_STATUS_TYPE.failure,
         statusCode: 404,
         systemTime: Date.now(),
@@ -93,24 +93,24 @@ class DeviceTraceController {
     }
   }
 
-  async update(context: RouterContext) {
-    const result = await context.request.body(
+  async update(ctx: RouterContext) {
+    const result = await ctx.request.body(
         { contentTypes: { text: ["application/json"] } },
     );
     const device = result.value;
-    const { id } = context.params;
+    const { id } = ctx.params;
     await deviceTraceService.update(parseInt(id!), <deviceTraceModel><unknown>device);
 
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { message: "success" };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { message: "success" };
   }
 
-  async delete(context: RouterContext) {
-    const { id } = context.params;
+  async delete(ctx: RouterContext) {
+    const { id } = ctx.params;
     await deviceTraceService.delete(parseInt(id!));
 
-    context.response.headers.set("Content-Type", "application/json");
-    context.response.body = { message: "success" };
+    ctx.response.headers.set("Content-Type", "application/json");
+    ctx.response.body = { message: "success" };
   }
 }
 

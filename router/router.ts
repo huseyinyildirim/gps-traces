@@ -55,6 +55,7 @@ router.get('/admin/device', (ctx : any) => {
 
 //#region API
 router.post("/api/v1/auth/login", apiAuthController.login);
+router.get("/api/v1/customer/:customerId/devices", null)
 
 //router.get("/device/:id", deviceController.show);
 router.get("/api/v1/device/:serialNo", apiDeviceController.showBySerialNo);

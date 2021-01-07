@@ -16,6 +16,10 @@ class DeviceTraceService {
     return await DeviceTraceRepository.all();
   };
 
+  getByCustomerIdDeviceId = async (customerId: number, deviceId: number) => {
+    return await DeviceTraceRepository.findCustomerIdDeviceId(customerId, deviceId);
+  };
+
   getByDeviceId = async (deviceId: number) => {
     /*const deviceTraces = new Array<DeviceTraceModel>();
 

@@ -89,7 +89,8 @@ router.get("/api/handshake", async (ctx) => {
 });
 
 router.post("/api/v1/auth/login", apiAuthController.login);
-router.get("/api/v1/customer/:customerId/devices", apiCustomerController.devices)
+router.get("/api/v1/customer/:customerId/device", apiCustomerController.devices)
+router.get("/api/v1/customer/:customerId/device/:deviceId/tracker", apiCustomerController.tracker)
 
 //router.get("/device/:id", deviceController.show);
 router.get("/api/v1/device/:serialNo", apiDeviceController.showBySerialNo);

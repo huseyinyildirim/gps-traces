@@ -10,6 +10,13 @@ class DeviceTraceRepository {
         return client.query("SELECT * FROM tbl_device_traces WHERE id=?", [id]);
     }
 
+    async findCustomerIdDeviceId(customerId: number, deviceId: number) {
+        return client.query("SELECT * FROM tbl_device_traces AS dt USE INDEX(device_id) WHERE dt.device_id IN (SELECT device_id FROM tbl_customer_devices AS cd USE INDEX(customer_id) WHERE cd.customer_id = ? AND cd.device_id = ?)", [
+            customerId,
+            deviceId
+        ]);
+    }
+
     async findDeviceId(deviceId: number) {
         return client.query("SELECT * FROM tbl_device_traces WHERE device_id=?", [deviceId]);
     }

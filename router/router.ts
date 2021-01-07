@@ -2,8 +2,8 @@ import { Router } from "https://deno.land/x/oak/mod.ts";
 
 import adminCustomerController from "../controllers/admin/customerController.ts"
 
-import apiDeviceController from "../controllers/deviceController.ts";
-import apiDeviceTraceController from "../controllers/deviceTraceController.ts";
+import apiDeviceController from "../controllers/api/deviceController.ts";
+import apiDeviceTraceController from "../controllers/api/deviceTraceController.ts";
 
 const router = new Router();
 

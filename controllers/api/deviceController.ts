@@ -1,7 +1,7 @@
 import { RouterContext } from "https://deno.land/x/oak/mod.ts";
-import deviceService from "../services/deviceService.ts";
-import deviceModel from "../models/deviceModel.ts"
-import { RESPONSE_STATUS_TYPE } from "../core/constants.ts";
+import deviceService from "../../services/deviceService.ts";
+import deviceModel from "../../models/deviceModel.ts"
+import { RESPONSE_STATUS_TYPE } from "../../core/constants.ts";
 
 class DeviceController {
   async index(context: RouterContext) {

@@ -1,6 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak/mod.ts";
 import deviceService from "../../services/deviceService.ts";
-import { RESPONSE_STATUS_TYPE } from "../../core/constants.ts";
+import { RESPONSE_STATUS_TYPE, LOCALE } from "../../core/constants.ts";
 
 class CustomerController {
 
@@ -17,6 +17,7 @@ class CustomerController {
         systemTime: Date.now(),
         data: devices,
         message: null,
+        locale: LOCALE.TR,
         error: {
           message: null,
           internalMessage: null,
@@ -30,6 +31,7 @@ class CustomerController {
         systemTime: Date.now(),
         data: null,
         message: null,
+        locale: LOCALE.TR,
         error: {
           message: null,
           internalMessage: null,

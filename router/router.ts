@@ -1,7 +1,9 @@
 import { Router } from "https://deno.land/x/oak/mod.ts";
 
-import deviceController from "../controllers/deviceController.ts";
-import deviceTraceController from "../controllers/deviceTraceController.ts";
+import adminCustomerController from "../controllers/admin/customerController.ts"
+
+import apiDeviceController from "../controllers/deviceController.ts";
+import apiDeviceTraceController from "../controllers/deviceTraceController.ts";
 
 const router = new Router();
 
@@ -30,7 +32,7 @@ router.get('/hakkimizda', (ctx : any) => {
 router.get('/iletisim', (ctx : any) => {
     ctx.render("web/pages/content/contact", null);
 });
-////#endregion
+//#endregion
 
 //#region 
 router.get('/admin', (ctx : any) => {
@@ -52,9 +54,9 @@ router.get('/admin/device', (ctx : any) => {
 
 //#region API
 //router.get("/device/:id", deviceController.show);
-router.get("/api/v1/device/:serialNo", deviceController.showBySerialNo);
-router.get("/api/v1/device/:deviceId/traces", deviceTraceController.showByDeviceId);
-router.post("/api/v1/device/:deviceId/traces", deviceTraceController.store);
-////#endregion
+router.get("/api/v1/device/:serialNo", apiDeviceController.showBySerialNo);
+router.get("/api/v1/device/:deviceId/traces", apiDeviceTraceController.showByDeviceId);
+router.post("/api/v1/device/:deviceId/traces", apiDeviceTraceController.store);
+//#endregion
 
 export { router };

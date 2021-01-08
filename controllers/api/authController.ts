@@ -18,7 +18,7 @@ class AuthController {
 
         ctx.response.headers.set("Content-Type", "application/json");
 
-        if (data) {
+        if (data.length > 0) {
           ctx.response.body = {
             status: RESPONSE_STATUS_TYPE.success,
             statusCode: 200,
@@ -39,7 +39,7 @@ class AuthController {
             data: null,
             message: null,
             error: {
-              message: null,
+              message: "Kullanıcı adı veya şifreniz hatalıdır.",
               internalMessage: null,
               help: null
             }

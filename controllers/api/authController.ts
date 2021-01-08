@@ -1,6 +1,6 @@
 import { RouterContext } from "https://deno.land/x/oak/mod.ts";
 import customerService from "../../services/customerService.ts";
-import { RESPONSE_STATUS_TYPE } from "../../core/constants.ts";
+import {LOCALE, RESPONSE_STATUS_TYPE} from "../../core/constants.ts";
 
 class AuthController {
 
@@ -25,6 +25,7 @@ class AuthController {
             systemTime: Date.now(),
             data: data[0],
             message: null,
+            locale: LOCALE.TR,
             error: {
               message: null,
               internalMessage: null,
@@ -38,6 +39,7 @@ class AuthController {
             systemTime: Date.now(),
             data: null,
             message: null,
+            locale: LOCALE.TR,
             error: {
               message: "Kullanıcı adı veya şifreniz hatalıdır.",
               internalMessage: null,

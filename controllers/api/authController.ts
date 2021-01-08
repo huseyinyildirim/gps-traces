@@ -37,7 +37,6 @@ class AuthController {
             status: RESPONSE_STATUS_TYPE.failure,
             statusCode: 404,
             systemTime: Date.now(),
-            data: null,
             message: null,
             locale: LOCALE.TR,
             error: {
